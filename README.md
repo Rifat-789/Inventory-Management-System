@@ -44,7 +44,7 @@ Inventory-Management-System/
 
 ## ▶️ How to Compile and Run
 
-Follow these steps to compile and run the Student Management System on your machine.
+Follow these steps to compile and run the Inventory Management System on your machine.
 
 ### 1️⃣ Prerequisites
 Make sure you have a C compiler installed.
@@ -60,31 +60,32 @@ gcc --version
 ### 2️⃣ Clone or Download the Project
 If using git: 
 ```bash
-git clone git@github.com:Rifat-789/Student-Management-System.git
+git clone git@github.com:Rifat-789/Inventory-Management-System.git
 ```
 ```bash
-cd Student-Management-System
+cd Inventory-Management-System
 ```
 
 ### 3️⃣ Compile the Program
 ```bash
-gcc main.c -o Student-Management-System
+gcc main.c -o Inventory-Management-System
 ```
 
 ### 4️⃣ Run the Program
 - **Linux / macOS:** 
 ```bash
-./Student-Management-System
+./Inventory-Management-System
 ```
 
 - **Windows(Command Prompt or PowerShell):** 
 ```bash
-Student-Management-System.exe
+Inventory-Management-System.exe
 ```
+Or, Copy the path of the exe file and paste it 
 
 - **Windows(Git Bash):**
 ```bash
-./Student-Management-System.exe
+./Inventory-Management-System.exe
 ```
 
 ---
