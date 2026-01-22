@@ -14,6 +14,7 @@ void loadData(Item items[], int *count);
 void printTitle(char title[], int padding);
 void printMenu(int count);
 void addItem(Item items[], int *count);
+void viewAllItem(Item items[], int count);
 void saveData(Item items[], int count);
 
 int main(){
@@ -59,6 +60,7 @@ int main(){
                     system("clear");
                 #endif
 
+                viewAllItem(items, count);
                 printf("Press ENTER to continue!");
                 getchar();
                 getchar();
@@ -170,7 +172,7 @@ void addItem(Item items[], int *count){
 
     if(scanf("%d", &items[*count].id) != 1){
     printf("Invalid input! ID must be a nubmer!");
-    while(getchar != '\n');
+    while(getchar() != '\n');
     return;
     }
 
@@ -198,8 +200,53 @@ void addItem(Item items[], int *count){
     printf("\nItem Added successfully!\n");
 }
 
-void viewAllItem(){
+void viewAllItem(Item items[], int count){
+    if (count == 0){
+        printf("No students found!");
+        return;
+    }
 
+    int pageSize = 5;
+    int shown = 0;
+    char choice;
+
+    while(shown < count){
+        #ifdef _WIN32
+            system("cls");
+        #else
+            system("clear");
+        #endif
+
+        printf("Number of items: %d", count);
+        printf("\n====================\n");
+
+        int remaining = count - shown;
+        int limit = remaining < pageSize ? remaining : pageSize;
+
+        for (int i = shown; i < shown + limit; i++){
+            printf("Item : %d", i + 1);
+
+            printf("%d", items[i].id);
+            printf("%s", items[i].name);
+            printf("%d", items[i].quantity);
+            printf("%d", items[i].price);
+        }
+
+        shown += limit;
+
+        if (shown >= count){
+            printf("End of the list!");
+        }
+
+        printf("Press ENTER to continue and Q to quit: ");
+        choice = getchar();
+
+        if(choice == 'Q' || choice == 'q'){
+            break;
+        }
+
+        getchar();
+    }
 }
 
 int searchItem(){
@@ -226,4 +273,6 @@ void saveData(Item items[], int count){
     fwrite(items, sizeof(Item), count, pFile);
 
     fclose(pFile);
+
+    printf("Data saved successfully!\n");
 }
