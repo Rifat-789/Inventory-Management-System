@@ -11,6 +11,10 @@ typedef struct{
 }Item;
 
 void loadData(Item items[], int *count);
+void printTitle(char title[], int padding);
+void printMenu(int count);
+void addItem(Item items[], int *count);
+void saveData(Item items[], int count);
 
 int main(){
 
@@ -20,6 +24,7 @@ int main(){
     int choice = 0;
     Item items[100];
     int count = 0;
+    loadData(items, &count);
 
     do{
         #ifdef _WIN32                       // Clears the interface each time menu loop repeats
@@ -28,6 +33,9 @@ int main(){
             system("clear");
         #endif
 
+        printTitle(title, padding);
+        printMenu(choice);
+        scanf("%d", &choice);
 
 
         switch (choice){
@@ -38,6 +46,7 @@ int main(){
                     system("clear");
                 #endif
 
+                addItem(items, &count);
                 printf("Press ENTER to continue!");
                 getchar();
                 getchar();
@@ -98,6 +107,7 @@ int main(){
                     system("clear");
                 #endif
 
+                saveData(items, count);
                 printf("Press ENTER to continue!");
                 getchar();
                 getchar();
@@ -144,7 +154,7 @@ void printTitle(char title[], int padding){
     printf("========================================\n");
 }
 
-void printMenu(int count){
+void printMenu(int choice){
     printf("1. Add Item\n");
     printf("2. View All Items\n");
     printf("3. Search Item by Id\n");
@@ -153,4 +163,67 @@ void printMenu(int count){
     printf("6. Save and Exit\n");
     printf("\n");
     printf("Enter your choice: ");
+}
+
+void addItem(Item items[], int *count){
+    printf("Item ID: ");
+
+    if(scanf("%d", &items[*count].id) != 1){
+    printf("Invalid input! ID must be a nubmer!");
+    while(getchar != '\n');
+    return;
+    }
+
+    getchar();
+
+    printf("Item Name: ");
+    fgets(items[*count].name, sizeof(items[*count].name), stdin);
+    items[*count].name[strcspn(items[*count].name, "\n")] = '\0';
+
+    printf("Quantity: ");
+    if(scanf("%d", &items[*count].quantity) != 1){
+        printf("Invalid input! Quantity must be a number!");
+        while(getchar() != '\n');
+        return;
+    }
+
+    printf("Price: ");
+    if(scanf("%d", &items[*count].price) != 1){
+        printf("Invalid input! Price must be a nubmer");
+        while(getchar() != '\n');
+        return;
+    }
+    
+    (*count)++;
+    printf("\nItem Added successfully!\n");
+}
+
+void viewAllItem(){
+
+}
+
+int searchItem(){
+
+}
+
+void updateItem(){
+
+}
+
+void deleteItem(){
+
+}
+
+void saveData(Item items[], int count){
+    FILE *pFile = fopen("inventory.dat", "wb");
+
+    if (pFile == NULL){
+        printf("Error saving data!");
+        return;
+    }
+
+    fwrite(&count, sizeof(int), 1, pFile);
+    fwrite(items, sizeof(Item), count, pFile);
+
+    fclose(pFile);
 }
