@@ -10,6 +10,8 @@ typedef struct{
     int price;
 }Item;
 
+void loadData(Item items[], int *count);
+
 int main(){
 
     char title[] = "**INVENTORY MANAGEMENT SYSTEM**";
@@ -19,8 +21,7 @@ int main(){
     Item items[100];
     int count = 0;
 
-    do
-    {
+    do{
         #ifdef _WIN32                       // Clears the interface each time menu loop repeats
             system("cls");
         #else
@@ -37,8 +38,10 @@ int main(){
                     system("clear");
                 #endif
 
-
-            break;
+                printf("Press ENTER to continue!");
+                getchar();
+                getchar();
+                break;
 
             case 2:
                 #ifdef _WIN32
@@ -47,8 +50,10 @@ int main(){
                     system("clear");
                 #endif
 
-
-            break;
+                printf("Press ENTER to continue!");
+                getchar();
+                getchar();
+                break;
 
             case 3:
                 #ifdef _WIN32
@@ -57,8 +62,10 @@ int main(){
                     system("clear");
                 #endif
 
-
-            break;
+                printf("Press ENTER to continue!");
+                getchar();
+                getchar();
+                break;
 
             case 4:
                 #ifdef _WIN32
@@ -67,8 +74,10 @@ int main(){
                     system("clear");
                 #endif
 
-
-            break;
+                printf("Press ENTER to continue!");
+                getchar();
+                getchar();
+                break;
 
             case 5:
                 #ifdef _WIN32
@@ -77,8 +86,10 @@ int main(){
                     system("clear");
                 #endif
 
-
-            break;
+                printf("Press ENTER to continue!");
+                getchar();
+                getchar();
+                break;
 
             case 6:
                 #ifdef _WIN32
@@ -87,8 +98,13 @@ int main(){
                     system("clear");
                 #endif
 
-                
-            break;
+                printf("Press ENTER to continue!");
+                getchar();
+                getchar();
+                break;
+
+            default:
+                break;
         }
         
         
@@ -99,4 +115,42 @@ int main(){
 
 
     return 0;
+}
+
+void loadData(Item items[], int *count){
+    FILE *pFile = fopen("inventory.dat", "rb");
+
+    if (pFile == NULL){
+        *count = 0;
+        fclose(pFile);
+        return;
+    }
+
+    fread(count, sizeof(int), 1, pFile);
+    fread(items, sizeof(Item), *count, pFile);
+
+    fclose(pFile);
+}
+
+void printTitle(char title[], int padding){
+    printf("========================================\n");
+
+    for (int i = 0; i < padding; i++){
+        printf(" ");
+    }
+
+    printf("%s\n", title);
+
+    printf("========================================\n");
+}
+
+void printMenu(int count){
+    printf("1. Add Item\n");
+    printf("2. View All Items\n");
+    printf("3. Search Item by Id\n");
+    printf("4. Update item\n");
+    printf("5. Delete Item\n");
+    printf("6. Save and Exit\n");
+    printf("\n");
+    printf("Enter your choice: ");
 }
