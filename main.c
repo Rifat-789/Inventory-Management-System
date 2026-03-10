@@ -15,6 +15,9 @@ void printTitle(char title[], int padding);
 void printMenu(int count);
 void addItem(Item items[], int *count);
 void viewAllItem(Item items[], int count);
+int searchItem(Item items[], int count);
+void updateItem(Item items[], int count);
+void deleteItem(Item items[], int *count);
 void saveData(Item items[], int count);
 
 int main(){
@@ -365,6 +368,43 @@ void deleteItem(Item items[], int *count){
     (*count)--;
     printf("Item deleted successfully.\n");
 
+}
+
+void updateStock(Item items[], int count){
+    int temp = 0;
+    int index = -1;
+
+    printf("Enter Item Id: ");
+    if(scanf("%d", &temp) != 1){
+        printf("Invalid input! Id must be a number.");
+        while(getchar() != '\n');
+        return;
+    }
+
+    for(int i = 0; i < count; i++){
+        if(temp == items[i].id){
+            index = i;
+        }
+    }
+
+    if(index == -1){
+        printf("Item not found!");
+    }
+
+    printf("\nItem %d\n", index + 1);
+    printf("Item ID: %d\n", items[index].id);
+    printf("Name: %s\n", items[index].name);
+    printf("Price: %d\n", items[index].price);
+    printf("Item Quantity: %d\n", items[index].quantity);
+
+    printf("New quantity: ");
+    if(scanf("%d", &items[index].quantity) != 1){
+        printf("Invalid input! Quantity must be a number.");
+        while(getchar() != '\n');
+        return;
+    }
+
+    printf("Stocks Updated successfuylly.");
 }
 
 void saveData(Item items[], int count){
