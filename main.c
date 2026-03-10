@@ -19,6 +19,7 @@ int searchItem(Item items[], int count);
 void updateItem(Item items[], int count);
 void deleteItem(Item items[], int *count);
 void updateStock(Item items[], int count);
+void updateSales(Item items[], int count);
 void saveData(Item items[], int count);
 
 int main(){
@@ -54,7 +55,6 @@ int main(){
                 addItem(items, &count);
                 printf("Press ENTER to continue!");
                 getchar();
-                getchar();
                 break;
 
             case 2:
@@ -67,7 +67,6 @@ int main(){
                 viewAllItem(items, count);
                 printf("Press ENTER to continue!");
                 getchar();
-                getchar();
                 break;
 
             case 3:
@@ -77,6 +76,7 @@ int main(){
                     system("clear");
                 #endif
 
+                searchItem(items, count);
                 printf("Press ENTER to continue!");
                 getchar();
                 getchar();
@@ -89,6 +89,7 @@ int main(){
                     system("clear");
                 #endif
 
+                updateItem(items, count);
                 printf("Press ENTER to continue!");
                 getchar();
                 getchar();
@@ -101,12 +102,38 @@ int main(){
                     system("clear");
                 #endif
 
+                deleteItem(items, &count);
+                printf("Press ENTER to continue!");
+                getchar();
+                break;
+
+            case 6:
+                #ifdef _WIN32
+                    system("cls");
+                #else
+                    system("clear");
+                #endif
+
+                updateStock(items, count);
                 printf("Press ENTER to continue!");
                 getchar();
                 getchar();
                 break;
 
-            case 6:
+            case 7:
+                #ifdef _WIN32
+                    system("cls");
+                #else
+                    system("clear");
+                #endif
+
+                updateSales(items, count);
+                printf("Press ENTER to continue!");
+                getchar();
+                getchar();
+                break;
+
+            case 8:
                 #ifdef _WIN32
                     system("cls");
                 #else
@@ -124,7 +151,7 @@ int main(){
         }
         
         
-    } while (choice != 6);
+    } while (choice != 8);
     
 
 
@@ -166,7 +193,9 @@ void printMenu(int choice){
     printf("3. Search Item by Id\n");
     printf("4. Update Item\n");
     printf("5. Delete Item\n");
-    printf("6. Save and Exit\n");
+    printf("6. Update Stocks\n");
+    printf("7. Update Sales\n");
+    printf("8. Save & Exit\n");
     printf("\n");
     printf("Enter your choice: ");
 }
@@ -229,18 +258,21 @@ void viewAllItem(Item items[], int count){
         int limit = remaining < pageSize ? remaining : pageSize;
 
         for (int i = shown; i < shown + limit; i++){
-            printf("Item : %d", i + 1);
+            printf("\nItem : %d\n", i + 1);
 
-            printf("%d", items[i].id);
-            printf("%s", items[i].name);
-            printf("%d", items[i].quantity);
-            printf("%d", items[i].price);
+            printf("Item Id: %d\n", items[i].id);
+            printf("Item Name: %s\n", items[i].name);
+            printf("Quantity: %d\n", items[i].quantity);
+            printf("Price: %d\n", items[i].price);
         }
+
+        printf("\n");
 
         shown += limit;
 
         if (shown >= count){
-            printf("End of the list!");
+            printf("\nEnd of the list!\n");
+            return;
         }
 
         printf("Press ENTER to continue and Q to quit: ");
@@ -338,14 +370,16 @@ void deleteItem(Item items[], int *count){
         return;
     }
 
-    for(int i = 0; i < count; i++){
+    for(int i = 0; i < *count; i++){
         if(temp == items[i].id){
             index = i;
+            break;
         }
     }
 
     if(index == -1){
         printf("Item not found!");
+        return;
     }
 
     printf("\nItem %d\n", index + 1);
