@@ -18,6 +18,7 @@ void viewAllItem(Item items[], int count);
 int searchItem(Item items[], int count);
 void updateItem(Item items[], int count);
 void deleteItem(Item items[], int *count);
+void updateStock(Item items[], int count);
 void saveData(Item items[], int count);
 
 int main(){
@@ -405,6 +406,39 @@ void updateStock(Item items[], int count){
     }
 
     printf("Stocks Updated successfuylly.");
+}
+
+void updateSales(Item items[], int count){
+    int temp = 0;
+    int index = -1;
+    int sold = 0;
+
+    printf("Enter Item Id: ");
+    if(scanf("%d", &temp) != 1){
+        printf("Invalid input! Id must be a number.");
+        while(getchar() != '\n');
+        return;
+    }
+
+    for(int i = 0; i < count; i++){
+        if(temp == items[i].id){
+            index = i;
+        }
+    }
+
+    if(index == -1){
+        printf("Item not found!");
+    }
+
+    printf("Enter the amount sold: ");
+    if(scanf("%d", &sold) != 1){
+        printf("Invalid input! Quantity must be a number.");
+        while(getchar() != '\n');
+        return;
+    }
+
+    items[index].quantity = (items[index].quantity) - sold;
+    printf("Updated successfully!");
 }
 
 void saveData(Item items[], int count){
