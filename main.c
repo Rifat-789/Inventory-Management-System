@@ -322,7 +322,48 @@ void updateItem(Item items[], int count){
     }
 }
 
-void deleteItem(){
+void deleteItem(Item items[], int *count){
+    int temp = 0;
+    int index = -1;
+    char confirm;
+
+    printf("Enter Item Id: ");
+    if(scanf("%d", &temp) != 1){
+        printf("Invalid Id! Id must be a number.");
+        while(getchar() != '\n');
+        return;
+    }
+
+    for(int i = 0; i < count; i++){
+        if(temp == items[i].id){
+            index = i;
+        }
+    }
+
+    if(index == -1){
+        printf("Item not found!");
+    }
+
+    printf("\nItem %d\n", index + 1);
+    printf("Item ID: %d\n", items[index].id);
+    printf("Name: %s\n", items[index].name);
+    printf("Price: %d\n", items[index].price);
+
+    printf("\nConfirm Delete? (Y/N): ");
+    scanf(" %c", &confirm);
+    confirm = toupper(confirm);
+
+    if(confirm != 'Y'){
+        printf("Deletion Cancelled\n");
+        return;
+    }
+
+    for(int i = index; i < *count - 1; i++){
+        items[i] = items[i + 1];
+    }
+
+    (*count)--;
+    printf("Item deleted successfully.\n");
 
 }
 
