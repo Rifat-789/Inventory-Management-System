@@ -14,6 +14,8 @@ The system is menu-driven and focuses on clean program structure, proper input v
 - Search item by ID
 - Update item details
 - Delete items from inventory
+- Update stocks
+- Update sales
 - Persistent data storage using binary files
 - Input validation to prevent invalid data
 - Clean, menu-driven interface
