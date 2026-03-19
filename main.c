@@ -142,7 +142,7 @@ int main(){
 
                 saveData(items, count);
                 printf("Press ENTER to continue!");
-                getchar();
+                getchar();      
                 getchar();
                 break;
 
